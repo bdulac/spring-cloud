@@ -1,5 +1,6 @@
 *.class
 
+docker_resources/.ssh/
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
@@ -17,3 +18,4 @@ target/*
 .classpath
 .project
 .settings/*
+/target/

@@ -1,13 +1,15 @@
-FROM openjdk:7
+FROM openjdk:8
+
 VOLUME /tmp
-# For Git ssh key auth
-#RUN mkdir -p /root/.ssh
-RUN mkdir -p /docker-compose
 
-# For Git ssh key auth
-#ADD src/main/resources/.ssh/* /root/.ssh/
-ADD target/*.jar /usr/local/bin/config-server.jar
 
-WORKDIR /usr/local/bin/
+RUN useradd -ms /bin/bash java
+# For Git ssh key auth
+ADD docker_resources/.ssh/id_rsa* /home/java/.ssh/
+ADD target/*.jar /home/java/config-server.jar
+RUN chown -R java /home/java/config-server.jar
+
+USER java
+WORKDIR /home/java/
 
 ENTRYPOINT [ "sh", "-c", "java -jar config-server.jar" ]
